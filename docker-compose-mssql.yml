@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+  i2b2-web:
+    image: i2b2-web:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - i2b2net
+    depends_on:
+      - i2b2-server
+  i2b2-server:
+    image: i2b2core-build:latest
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+    networks:
+      - i2b2net
+    environment:
+      - CON_URL=jdbc:sqlserver://i2b2data:1433
+      - DB_DRIVER_CLASS=com.microsoft.sqlserver.jdbc.SQLServerDriver
+      - DB_DRIVER=mssql-jdbc-7.0.0.jre8.jar
+      - i2b2_db_user_HIVE=i2b2hive
+      - i2b2_db_pass_HIVE=demouser
+      - i2b2_db_schema_HIVE=i2b2hive 
+      - i2b2_db_user_PM=i2b2pm
+      - i2b2_db_pass_PM=demouser
+      - i2b2_db_schema_PM=i2b2pm
+      - i2b2_AGGSERVICE_user=AGG_SERVICE_ACCOUNT
+      - i2b2_AGGSERVICE_pass=demouser
+      - db_project=demo
+      - i2b2_db_user_CRC=i2b2demodata
+      - i2b2_db_pass_CRC=demouser
+      - i2b2_db_schema_CRC=i2b2demodata
+      - i2b2_db_user_ONT=i2b2metadata
+      - i2b2_db_pass_ONT=demouser
+      - i2b2_db_schema_ONT=i2b2metadata
+      - i2b2_db_user_WORK=i2b2workdata
+      - i2b2_db_pass_WORK=demouser
+      - i2b2_db_schema_WORK=i2b2workdata
+      - i2b2_db_user_IM=i2b2imdata
+      - i2b2_db_pass_IM=demouser
+      - i2b2_db_schema_IM=i2b2imdata
+    depends_on:
+      - i2b2data
+  i2b2data:
+    image: i2b2data-mssql:latest
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Yukon90
+    networks:
+      - i2b2net
+    
+networks: 
+    i2b2net:
+       driver: bridge

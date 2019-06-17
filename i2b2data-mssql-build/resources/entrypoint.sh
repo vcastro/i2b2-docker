@@ -1,0 +1,1 @@
+ /docker-entrypoint-initdb.d/docker-entrypoint.sh & /opt/mssql/bin/sqlservr

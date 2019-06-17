@@ -1,0 +1,7 @@
+BACKUP DATABASE i2b2pm TO  DISK = N'/opt/i2b2data/i2b2pm.bak' WITH NOFORMAT, NOINIT,  NAME = N'DB_NAME-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10
+
+GO
+
+BACKUP DATABASE i2b2demodata TO  DISK = N'/opt/i2b2data/i2b2demodata.bak' WITH NOFORMAT, NOINIT,  NAME = N'DB_NAME-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10
+
+GO
